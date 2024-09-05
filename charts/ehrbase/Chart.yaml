@@ -1,0 +1,22 @@
+apiVersion: v2
+name: ehrbase
+version: 0.1.0
+kubeVersion: ">=1.26"
+description: EHRbase is an open source software backend for clinical application systems and electronic health records.
+type: application
+keywords:
+  - ehrbase
+  - openehr
+  - ehr
+home: https://github.com/konateq/ehrbase-helm-chart
+sources:
+  - https://github.com/konateq/ehrbase-helm-chart/tree/main/charts/ehrbase
+dependencies:
+  - condition: postgresql.enabled
+    name: postgresql
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 15.x.x
+maintainers:
+  - name: Konateq
+    url: https://konateq.com
+appVersion: "2.7.0"
