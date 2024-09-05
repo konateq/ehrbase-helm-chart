@@ -1,0 +1,120 @@
+# Default values for ehrbase.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+configuration: ""
+
+replicaCount: 1
+
+image:
+  repository: ehrbase/ehrbase
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  seccompProfile:
+    type: RuntimeDefault
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: ehrbase.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+livenessProbe:
+  httpGet:
+    path: /ehrbase/rest/status
+    port: http
+  initialDelaySeconds: 15
+readinessProbe:
+  httpGet:
+    path: /ehrbase/rest/status
+    port: http
+  initialDelaySeconds: 15
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPU: 80
+
+volumes: []
+
+volumeMounts: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## PostgreSQL chart parameters
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
+postgresql:
+  enabled: true
+
+  auth:
+    postgresPassword: ""
+    username: ehrbase
+    password: ""
+    database: ehrbase
+    existingSecret: ""
+
+  architecture: standalone
+
+  primary:
+    initdb:
+      scripts:
+        init_db.sql: |
+          CREATE SCHEMA IF NOT EXISTS ehr;
+          CREATE SCHEMA IF NOT EXISTS ext;
+
+          CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA ext;
+
+          ALTER DATABASE ehrbase SET search_path TO ext;
+          ALTER DATABASE ehrbase SET intervalstyle = 'iso_8601';
+
+          ALTER FUNCTION jsonb_path_query(jsonb, jsonpath, jsonb, boolean) ROWS 1;
+
+## External database parameters
+externalDatabase:
+  host: ""
+  port: 5432
+  username: ehrbase
+  password: ""
+  database: ehrbase
+  existingSecret: ""
+  existingSecretPasswordKey: ""

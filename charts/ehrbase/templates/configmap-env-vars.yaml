@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ehrbase.fullname" . }}-env-vars
+  labels:
+    {{- include "ehrbase.labels" . | nindent 4 }}
+data:
+  DB_URL: {{ include "ehrbase.databaseUrl" . | quote }}
+  DB_USER: {{ include "ehrbase.databaseUser" . | quote }}
+  DB_USER_ADMIN: {{ include "ehrbase.databaseUser" . | quote }}

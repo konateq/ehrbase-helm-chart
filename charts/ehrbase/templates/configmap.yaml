@@ -1,0 +1,11 @@
+{{- if .Values.configuration }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ehrbase.fullname" . }}-configuration
+  labels:
+    {{- include "ehrbase.labels" . | nindent 4 }}
+data:
+  application.yml: |-
+    {{- .Values.configuration | nindent 4 }}
+{{- end }}
