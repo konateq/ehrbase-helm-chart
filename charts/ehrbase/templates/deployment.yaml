@@ -47,12 +47,46 @@ spec:
                 secretKeyRef:
                   name: {{ include "ehrbase.databaseSecretName" . }}
                   key: {{ include "ehrbase.databaseSecretPasswordKey" . }}
+            {{- if .Values.auth.enabled }}
+            - name: SECURITY_AUTHTYPE
+              value: BASIC
+            - name: SECURITY_AUTHUSER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ehrbase.authSecretName" . }}
+                  key: username
+            - name: SECURITY_AUTHPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ehrbase.authSecretName" . }}
+                  key: password
+            - name: SECURITY_AUTHADMINUSER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ehrbase.authSecretName" . }}
+                  key: admin-username
+            - name: SECURITY_AUTHADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ehrbase.authSecretName" . }}
+                  key: admin-password
+            {{- end }}
+            {{- with .Values.extraEnvVars }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "ehrbase.fullname" . }}-env-vars
+            {{- if .Values.extraEnvVarsSecret }}
+            - secretRef:
+                name: {{ .Values.extraEnvVarsSecret }}
+            {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
+              protocol: TCP
+            - name: management
+              containerPort: {{ .Values.service.managementPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -69,6 +103,9 @@ spec:
               subPath: application.yml
               readOnly: true
             {{- end }}
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
       volumes:
         - name: tmp-dir
           emptyDir: { }
@@ -76,6 +113,9 @@ spec:
         - name: ehrbase-config
           configMap:
             name: {{ include "ehrbase.fullname" . }}-configuration
+        {{- end }}
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
