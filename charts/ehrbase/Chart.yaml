@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ehrbase
-version: 0.1.0
+version: 0.2.0
 kubeVersion: ">=1.26"
 description: EHRbase is an open source software backend for clinical application systems and electronic health records.
 type: application
