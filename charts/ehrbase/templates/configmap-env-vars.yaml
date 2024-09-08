@@ -8,3 +8,6 @@ data:
   DB_URL: {{ include "ehrbase.databaseUrl" . | quote }}
   DB_USER: {{ include "ehrbase.databaseUser" . | quote }}
   DB_USER_ADMIN: {{ include "ehrbase.databaseUser" . | quote }}
+  MANAGEMENT_ENDPOINT_HEALTH_ENABLED: "true"
+  MANAGEMENT_ENDPOINTS_WEB_ACCESS: "PUBLIC"
+  MANAGEMENT_SERVER_PORT: {{ .Values.service.managementPort | quote }}

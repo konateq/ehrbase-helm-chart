@@ -136,3 +136,14 @@ Return the database password key
 {{- default "password" .Values.externalDatabase.existingSecretPasswordKey -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the basic authentication secret name
+*/}}
+{{- define "ehrbase.authSecretName" -}}
+{{- if .Values.auth.existingSecret }}
+{{- .Values.auth.existingSecret }}
+{{- else }}
+{{- printf "%s-auth-secret" (include "ehrbase.fullname" .) }}
+{{- end }}
+{{- end }}

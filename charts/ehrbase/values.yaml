@@ -2,6 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+auth:
+  enabled: true
+  username: ehrbase-user
+  password: ""
+  adminUsername: ehrbase-admin
+  adminPassword: ""
+  existingSecret: ""
+
 configuration: ""
 
 replicaCount: 1
@@ -40,6 +48,7 @@ securityContext:
 service:
   type: ClusterIP
   port: 8080
+  managementPort: 9000
 
 ingress:
   enabled: false
@@ -56,13 +65,13 @@ resources: {}
 
 livenessProbe:
   httpGet:
-    path: /ehrbase/rest/status
-    port: http
+    path: /management/health/liveness
+    port: management
   initialDelaySeconds: 15
 readinessProbe:
   httpGet:
-    path: /ehrbase/rest/status
-    port: http
+    path: /management/health/readiness
+    port: management
   initialDelaySeconds: 15
 
 autoscaling:
@@ -71,9 +80,12 @@ autoscaling:
   maxReplicas: 10
   targetCPU: 80
 
-volumes: []
+extraEnvVars: []
+extraEnvVarsSecret: ""
 
-volumeMounts: []
+extraVolumes: []
+
+extraVolumeMounts: []
 
 nodeSelector: {}
 
