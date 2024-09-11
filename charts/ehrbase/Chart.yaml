@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ehrbase
-version: 0.2.0
+version: 0.3.0
 kubeVersion: ">=1.26"
 description: EHRbase is an open source software backend for clinical application systems and electronic health records.
 type: application
@@ -16,6 +16,10 @@ dependencies:
     name: postgresql
     repository: oci://registry-1.docker.io/bitnamicharts
     version: 15.x.x
+  - condition: redis.enabled
+    name: redis
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 20.x.x
 maintainers:
   - name: Konateq
     url: https://konateq.com

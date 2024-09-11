@@ -47,6 +47,13 @@ spec:
                 secretKeyRef:
                   name: {{ include "ehrbase.databaseSecretName" . }}
                   key: {{ include "ehrbase.databaseSecretPasswordKey" . }}
+            {{- if or .Values.redis.enabled .Values.externalRedis.enabled }}
+            - name: SPRING_DATA_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ehrbase.redisSecretName" . }}
+                  key: {{ include "ehrbase.redisSecretPasswordKey" . }}
+            {{- end }}
             {{- if .Values.auth.enabled }}
             - name: SECURITY_AUTHTYPE
               value: BASIC
