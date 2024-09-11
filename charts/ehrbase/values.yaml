@@ -130,3 +130,23 @@ externalDatabase:
   database: ehrbase
   existingSecret: ""
   existingSecretPasswordKey: ""
+
+## Redis chart parameters
+## ref: https://github.com/bitnami/charts/blob/main/bitnami/redis/values.yaml
+redis:
+  enabled: false
+
+  auth:
+    enabled: true
+    password: ""
+    existingSecret: ""
+    existingSecretPasswordKey: ""
+
+## External database parameters
+externalRedis:
+  enabled: false
+  host: ""
+  port: 6379
+  password: ""
+  existingSecret: ""
+  existingSecretPasswordKey: ""

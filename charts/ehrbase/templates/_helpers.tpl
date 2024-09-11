@@ -147,3 +147,62 @@ Return the basic authentication secret name
 {{- printf "%s-auth-secret" (include "ehrbase.fullname" .) }}
 {{- end }}
 {{- end }}
+
+{{/*
+Return the fully qualified name of the Redis dependency
+*/}}
+{{- define "ehrbase.redis.fullname" -}}
+{{- include "common.names.dependency.fullname" (dict "chartName" "redis" "chartValues" .Values.redis "context" $) -}}
+{{- end -}}
+
+{{/*
+Return the Redis host
+*/}}
+{{- define "ehrbase.redisHost" -}}
+{{- if .Values.redis.enabled }}
+{{- printf "%s-master" (include "ehrbase.redis.fullname" .) -}}
+{{- else -}}
+{{- .Values.externalRedis.host -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the Redis port
+*/}}
+{{- define "ehrbase.redisPort" -}}
+{{- if .Values.redis.enabled }}
+{{- .Values.redis.master.service.ports.redis -}}
+{{- else -}}
+{{- .Values.externalRedis.port -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the Redis secret name
+*/}}
+{{- define "ehrbase.redisSecretName" -}}
+{{- if .Values.redis.enabled }}
+{{- if .Values.redis.auth.existingSecret }}
+{{- .Values.redis.auth.existingSecret -}}
+{{- else -}}
+{{- printf "%s" (include "ehrbase.redis.fullname" .) }}
+{{- end -}}
+{{- else if .Values.externalRedis.existingSecret }}
+{{- .Values.externalRedis.existingSecret -}}
+{{- else -}}
+{{- printf "%s-redis" (include "ehrbase.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Return the Redis password key
+*/}}
+{{- define "ehrbase.redisSecretPasswordKey" -}}
+{{- if and .Values.redis.enabled .Values.redis.auth.existingSecret }}
+{{- .Values.redis.auth.existingSecretPasswordKey }}
+{{- else if and (not .Values.redis.enabled) .Values.externalRedis.existingSecret }}
+{{- default "redis-password" .Values.externalRedis.existingSecretPasswordKey }}
+{{- else -}}
+{{- printf "redis-password" -}}
+{{- end -}}
+{{- end -}}
