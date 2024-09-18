@@ -55,8 +55,6 @@ spec:
                   key: {{ include "ehrbase.redisSecretPasswordKey" . }}
             {{- end }}
             {{- if .Values.auth.enabled }}
-            - name: SECURITY_AUTHTYPE
-              value: BASIC
             - name: SECURITY_AUTHUSER
               valueFrom:
                 secretKeyRef:
@@ -89,7 +87,7 @@ spec:
                 name: {{ .Values.extraEnvVarsSecret }}
             {{- end }}
           ports:
-            - name: http
+            - name: {{ include "ehrbase.portName" . }}
               containerPort: {{ .Values.service.port }}
               protocol: TCP
             - name: management
@@ -110,6 +108,11 @@ spec:
               subPath: application.yml
               readOnly: true
             {{- end }}
+            {{- if .Values.tls.enabled }}
+            - name: tls-certs
+              mountPath: /app/certs
+              readOnly: true
+            {{- end }}
             {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -120,6 +123,11 @@ spec:
         - name: ehrbase-config
           configMap:
             name: {{ include "ehrbase.fullname" . }}-configuration
+        {{- end }}
+        {{- if .Values.tls.enabled }}
+        - name: tls-certs
+          secret:
+            secretName: {{ include "ehrbase.tlsSecretName" . }}
         {{- end }}
         {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}

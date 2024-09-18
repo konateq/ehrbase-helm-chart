@@ -23,6 +23,9 @@ To deploy EHRbase using the default configuration, run the following command:
 helm install ehrbase oci://ghcr.io/konateq/charts/ehrbase --namespace ehrbase --create-namespace
 ```
 
+For more information on how to use or customize this chart, please refer to the [README.md](./charts/ehrbase/README.md)
+and [values.yaml](./charts/ehrbase/values.yaml) files.
+
 ## Contributing
 
 We would love to have you contribute to this project. Please open an issue or a pull request with your ideas.
