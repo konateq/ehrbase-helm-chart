@@ -12,6 +12,10 @@ auth:
 
 configuration: ""
 
+tls:
+  enabled: false
+  existingSecret: ""
+
 replicaCount: 1
 
 image:
@@ -49,6 +53,7 @@ service:
   type: ClusterIP
   port: 8080
   managementPort: 9000
+  annotations: {}
 
 ingress:
   enabled: false

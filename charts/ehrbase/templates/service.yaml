@@ -4,12 +4,16 @@ metadata:
   name: {{ include "ehrbase.fullname" . }}
   labels:
     {{- include "ehrbase.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - name: http
+    - name: {{ include "ehrbase.portName" . }}
       port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: {{ include "ehrbase.portName" . }}
       protocol: TCP
   selector:
     {{- include "ehrbase.selectorLabels" . | nindent 4 }}

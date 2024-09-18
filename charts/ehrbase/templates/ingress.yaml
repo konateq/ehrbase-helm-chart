@@ -1,5 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "ehrbase.fullname" . -}}
+{{- $portName := include "ehrbase.portName" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -34,7 +35,7 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  name: http
+                  name: {{ $portName }}
           {{- end }}
     {{- end }}
 {{- end }}

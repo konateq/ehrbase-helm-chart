@@ -206,3 +206,25 @@ Return the Redis password key
 {{- printf "redis-password" -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return the TLS secret name
+*/}}
+{{- define "ehrbase.tlsSecretName" -}}
+{{- if .Values.tls.existingSecret }}
+{{- .Values.tls.existingSecret }}
+{{- else }}
+{{- printf "%s-tls" (include "ehrbase.fullname" .) }}
+{{- end }}
+{{- end }}
+
+{{/*
+Return the port to use
+*/}}
+{{- define "ehrbase.portName" -}}
+{{- if .Values.tls.enabled }}
+{{- printf "https" }}
+{{- else }}
+{{- printf "http" }}
+{{- end }}
+{{- end }}
