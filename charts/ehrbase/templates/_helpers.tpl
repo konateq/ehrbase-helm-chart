@@ -199,7 +199,7 @@ Return the Redis password key
 */}}
 {{- define "ehrbase.redisSecretPasswordKey" -}}
 {{- if and .Values.redis.enabled .Values.redis.auth.existingSecret }}
-{{- .Values.redis.auth.existingSecretPasswordKey }}
+{{- default "redis-password" .Values.redis.auth.existingSecretPasswordKey }}
 {{- else if and (not .Values.redis.enabled) .Values.externalRedis.existingSecret }}
 {{- default "redis-password" .Values.externalRedis.existingSecretPasswordKey }}
 {{- else -}}
