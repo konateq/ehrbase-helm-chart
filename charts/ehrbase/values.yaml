@@ -20,7 +20,7 @@ replicaCount: 1
 
 image:
   repository: ehrbase/ehrbase
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: ""
 
 imagePullSecrets: []
@@ -32,6 +32,8 @@ serviceAccount:
   automount: true
   annotations: {}
   name: ""
+
+deploymentAnnotations: {}
 
 podAnnotations: {}
 podLabels: {}
