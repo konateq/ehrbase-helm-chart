@@ -78,7 +78,7 @@ The following table lists the configurable parameters of the EHRbase chart and t
 | `tls.existingSecret`                         | Existing secret for TLS                 | `""`                           |
 | `replicaCount`                               | Number of replicas                      | `1`                            |
 | `image.repository`                           | EHRbase image repository                | `ehrbase/ehrbase`              |
-| `image.pullPolicy`                           | EHRbase image pull policy               | `IfNotPresent`                 |
+| `image.pullPolicy`                           | EHRbase image pull policy               | `Always`                       |
 | `image.tag`                                  | EHRbase image tag                       | `""`                           |
 | `imagePullSecrets`                           | Image pull secrets                      | `[]`                           |
 | `nameOverride`                               | Override the chart name                 | `""`                           |
@@ -87,6 +87,7 @@ The following table lists the configurable parameters of the EHRbase chart and t
 | `serviceAccount.automount`                   | Automount service account token         | `true`                         |
 | `serviceAccount.annotations`                 | Service account annotations             | `{}`                           |
 | `serviceAccount.name`                        | Service account name                    | `""`                           |
+| `deploymentAnnotations`                      | Deployment annotations                  | `{}`                           |
 | `podAnnotations`                             | Pod annotations                         | `{}`                           |
 | `podLabels`                                  | Pod labels                              | `{}`                           |
 | `podSecurityContext`                         | Pod security context                    | `{}`                           |
