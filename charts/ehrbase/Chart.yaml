@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ehrbase
-version: 0.7.0
+version: 1.0.0
 kubeVersion: ">=1.26"
 description: EHRbase is an open source software backend for clinical application systems and electronic health records.
 type: application
@@ -24,4 +24,4 @@ maintainers:
   - name: Konateq
     url: https://konateq.com
 # renovate: image=ehrbase/ehrbase
-appVersion: "2.9.0"
+appVersion: "2.10.0"
