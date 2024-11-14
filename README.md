@@ -11,14 +11,12 @@ This repository contains a Helm chart to deploy [EHRbase](https://github.com/ehr
 > This project is an open-source initiative and does not constitute an official product supported by EHRbase team or
 > vitasystems GmbH.
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 - Kubernetes 1.26+
 - Helm 3.14.0+
 
-### Usage
+## Usage
 
 To deploy EHRbase using the default configuration, run the following command:
 
