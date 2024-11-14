@@ -23,4 +23,5 @@ dependencies:
 maintainers:
   - name: Konateq
     url: https://konateq.com
+# renovate: image=ehrbase/ehrbase
 appVersion: "2.9.0"
