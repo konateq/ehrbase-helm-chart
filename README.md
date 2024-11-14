@@ -1,14 +1,15 @@
 # EHRbase Helm Chart
 
-[![Release Charts](https://github.com/konateq/ehrbase-helm-chart/actions/workflows/release.yml/badge.svg)](https://github.com/konateq/ehrbase-helm-chart/actions/workflows/release.yml)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Lint and Test](https://github.com/konateq/ehrbase-helm-chart/actions/workflows/lint-and-test.yml/badge.svg)](https://github.com/konateq/ehrbase-helm-chart/actions/workflows/lint-and-test.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=konateq_ehrbase-helm-chart&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=konateq_ehrbase-helm-chart)
+![GitHub Release](https://img.shields.io/github/v/release/konateq/ehrbase-helm-chart)
+![GitHub License](https://img.shields.io/github/license/konateq/ehrbase-helm-chart)
 
-This repository contains a Helm chart to deploy [EHRbase](https://github.com/ehrbase/ehrbase) on a Kubernetes cluster.
+This repository contains a Helm chart to deploy [EHRbase](https://github.com/ehrbase/ehrbase) on any Kubernetes cluster.
 
 > [!IMPORTANT]    
-> This project is an open-source initiative and does not constitute an official product endorsed by EHRbase or
+> This project is an open-source initiative and does not constitute an official product supported by EHRbase team or
 > vitasystems GmbH.
-> The provided code is distributed on an "AS IS" basis, without warranties of any kind, either express or implied.
 
 ## Prerequisites
 
@@ -23,8 +24,8 @@ To deploy EHRbase using the default configuration, run the following command:
 helm install ehrbase oci://ghcr.io/konateq/charts/ehrbase --namespace ehrbase --create-namespace
 ```
 
-For more information on how to use or customize this chart, please refer to the [README.md](./charts/ehrbase/README.md)
-and [values.yaml](./charts/ehrbase/values.yaml) files.
+For additional information on how to use and customize this chart, please refer to
+this [README.md](./charts/ehrbase/README.md) and the [Wiki](https://github.com/konateq/ehrbase-helm-chart/wiki) pages.
 
 ## Contributing
 
