@@ -1,3 +1,8 @@
+> [!WARNING]    
+> This repository has been archived and is no longer actively maintained. The EHRbase Helm Chart is now maintained as part
+> of the [Konateq Helm Charts](https://github.com/konateq/helm-charts) repository.
+
+
 # EHRbase Helm Chart
 
 [![Lint and Test](https://github.com/konateq/ehrbase-helm-chart/actions/workflows/lint-and-test.yml/badge.svg)](https://github.com/konateq/ehrbase-helm-chart/actions/workflows/lint-and-test.yml)
