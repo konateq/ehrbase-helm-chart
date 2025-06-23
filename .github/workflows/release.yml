@@ -25,7 +25,7 @@ jobs:
         uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112 # v4
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@d1e09fd16821c091b45aa754f65bae4dd675d425
+        uses: helm/chart-releaser-action@3e001cb8c68933439c7e721650f20a07a1a5c61e
         with:
           skip_upload: true
         env:
